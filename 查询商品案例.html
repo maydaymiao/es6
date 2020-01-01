@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <style>
+    td,
+    th {
+      border: 1px solid black;
+      /* 单元格设置边框 */
+    }
+    table {
+      margin: 30px auto;
+      width: 20%;
+      border-collapse: collapse;
+    }
+  </style>
+  <body>
+    <div class="search">
+      按照价格查询：<input type="text" class="start" /> -
+      <input type="text" class="end" />
+      <button class="search-price">搜索</button> 按照商品名称查询：<input
+        type="text"
+        class="product"
+      />
+      <button class="search-pro">查询</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>产品名称</th>
+          <th>价格</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </body>
+  <script>
+    let tbody = document.querySelector("tbody");
+
+    var data = [
+      {
+        id: 1,
+        pname: "小米",
+        price: 3999
+      },
+      {
+        id: 2,
+        pname: "oppo",
+        price: 999
+      },
+      {
+        id: 3,
+        pname: "荣耀",
+        price: 1299
+      },
+      {
+        id: 4,
+        pname: "华为",
+        price: 1999
+      }
+    ];
+    function setData(datas) {
+      datas.forEach(element => {
+        let tr = document.createElement("tr");
+        tr.innerHTML = `<td>${element.id}</td><td>${element.pname}</td><td>${element.price}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+    setData(data);
+
+    // 根据价格区间查询商品
+    let start = document.querySelector(".start");
+    let td = document.querySelectorAll("td");
+    let end = document.querySelector(".end");
+    let searchPrice = document.querySelector(".search-price");
+    let searchPro = document.querySelector(".search-pro");
+    let productInput = document.querySelector(".product");
+    let filterArr = [];
+    searchPrice.addEventListener("click", function() {
+      tbody.innerHTML = "";
+      filterArr = data.filter(function(element, index) {
+        console.log(end.value);
+        return (
+          (element.price >= start.value || 0) && element.price <= end.value
+        );
+      });
+      console.log(filterArr);
+      setData(filterArr);
+    });
+
+    // 按照商品名称查询
+    searchPro.addEventListener("click", function() {
+      // 声明一个空数组，来保存some方法得到的element对象
+      var arr = [];
+      tbody.innerHTML = "";
+      let product = productInput.value;
+      // 如果查询数组中的唯一元素，用some方法合适，因为它只要找到这个元素，就不再循环
+      filterProduct = data.some(function(element) {
+        if (element.pname == product) {
+          console.log(element);
+          arr.push(element);
+          return true; // some返回的布尔值，所以return后面一定要跟true
+        }
+      });
+      console.log(arr);
+      setData(arr);
+    });
+  </script>
+</html>
