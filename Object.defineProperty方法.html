@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var obj = {
+        id: 1,
+        pname: '小米',
+        price: 1999
+    };
+
+    // 1. 以前的对象添加和修改方法
+    // obj.model = 'mix3';
+    // obj.price = 999;
+    // console.log(obj); // { id: 1, pname: '小米', price: 999, model: 'mix3' }
+
+    // Object.defineProperty()的作用就是直接在一个对象上定义一个新属性，或者修改一个已经存在的属性
+    // Object.defineProperty(obj, prop, desc)
+    // obj 需要定义属性的当前对象
+    // prop 当前需要定义的属性名
+    // desc 属性描述符，对象形式书写
+    Object.defineProperty(obj, 'model', {
+        value: 'mix3',
+    })
+    Object.defineProperty(obj, 'id', {
+        writable: false
+    })
+    obj.id = 2; //无效
+
+    console.log(obj)
+    console.log(Object.keys(obj))
+</script>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>按钮</button>
+</body>
+<script>
+    // 1. call经常做继承
+    // 2. apply经常跟数组有关系
+    // 3. bind改变定时器内部this指向
+
+
+    // apply的主要应用：跟数组相关的应用，比如说求数组中的最大最小值
+    var arr = [1, 99, 2, 55, 8, 21, 45];
+    // Math调用max这个方法
+    var max = Math.max.apply(Math, arr);
+    console.log(max)
+
+    // bind()方法不会调用函数，但是能改变函数内部this指向 fun.bind(thisArg, arg1, arg2,..)
+    // bind()应用：如果有的函数我们不需要立即调用，但又想改变这个函数内部的this指向，此时用bind
+    // eg：我们有一个按钮，当我们点击了之后，就禁用这个按钮，3秒后开启这个按钮（比如：发送验证码场景）
+    let btn = document.querySelector('button');
+    btn.addEventListener('click', function () {
+        this.disabled = true
+        setTimeout(function () {
+            this.disabled = false // 单纯这句话无效，因为定时器里的this指向的是window，所以要加bind
+        }.bind(this), 3000) //这里用call和apply都不合适，因为call和apply都会立即调用这个函数
+    })
+</script>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 闭包指有权访问另一个函数作用于中变量的函数。简单来说就是，一个作用域可以访问另一个函数内部的局部变量
+    // 作用：延伸了变量的作用范围
+    function outter() {
+        let num = 10;
+
+        function inner() {
+            console.log(num);
+        }
+        inner();
+    }
+    outter(); // 10
+
+    // 外面的作用域也可以访问outter里的局部变量
+    function outter1() {
+        let num1 = 20;
+        return function () {
+            console.log(num1);
+        }
+    }
+    let oouter = outter1();
+    oouter(); // 20
+</script>
+
+</html>
