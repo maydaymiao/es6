@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    const Michael = {
+      name: "Michael",
+      date: "2020-1-5",
+      todos: [
+        { name: "Study", completed: false },
+        { name: "Watch movie", completed: true },
+        { name: "Running", completed: true }
+      ]
+    };
+
+    // 我一开始用的forEach，但是这里只能用map (forEach会返回undefined)
+    // 原因：map会返回一个新的数组，而forEach只是针对每一个元素执行提供的函数
+    // 在这里我们需要返回新的数组，并且把数组转换成字符串，所以要用map
+    const template = `
+    <ul>
+        ${Michael.todos
+          .map(
+            element =>
+              `<li>${element.name} ${
+                element.completed ? "完成" : "未完成"
+              }</li>`
+          )
+          .join("")}
+    </ul>
+    `;
+
+    document.body.innerHTML = template;
+  </script>
+</html>
