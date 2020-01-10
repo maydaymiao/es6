@@ -1,13 +1,16 @@
 const basic = [
   {
+    id: 1,
     name: "Michael",
     age: 30
   },
   {
+    id: 2,
     name: "Webber",
     age: 28
   },
   {
+    id: 3,
     name: "Jenny",
     age: 35
   }
@@ -28,36 +31,39 @@ const scores = [
   }
 ];
 
-function getInfo(name) {
+function getBasic(id) {
   return new Promise((resolve, reject) => {
+    // setTimeout这里模拟从云端获取数据的延时
     setTimeout(() => {
-      // 我一开始用forEach，但是除了第一个数据ok，要查询其他行数据就不ok（返回Reject）
-      // 原因是forEach会每一个都循环并直接输出
-      let obj = basic.find(obj => obj.name == name);
-      if (obj) {
-        resolve(obj);
+      let targetObj = basic.find(obj => obj.id == id);
+      if (targetObj) {
+        resolve(targetObj);
       } else {
-        reject(Error("Cannot find the user!"));
+        reject(Error("Cannot find that id!"));
       }
     }, 2000);
   });
 }
 
-function getScore(name) {
+function getScore(o) {
   return new Promise((resolve, reject) => {
-    let obj = scores.find(obj => obj.name == name);
-    if (obj) {
-      resolve(obj);
+    let targetObj = scores.find(obj => obj.name == o.name);
+    if (targetObj) {
+      resolve(targetObj);
     } else {
-      reject(Error("Cannot get the score"));
+      reject(Error("Cannot find that person!"));
     }
   });
 }
 
-getInfo("Jenny")
-  .then(ele => {
-    return getScore(ele);
+getBasic(1)
+  .then(obj => {
+    // 这里要注意加return，否则再传到下一个then会输出undefined
+    return getScore(obj);
   })
-  .then(ele => {
-    console.log(ele);
+  .then(obj => {
+    console.log(obj.score);
+  })
+  .catch(err => {
+    console.error(err);
   });
